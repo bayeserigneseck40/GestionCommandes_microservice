@@ -1,0 +1,12 @@
+#produit{
+    margin: auto;
+    font-weight:bold;
+    background-color: #3291e6; 
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    width: 100%;text-align: center;
+}
+label{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: large;
+}

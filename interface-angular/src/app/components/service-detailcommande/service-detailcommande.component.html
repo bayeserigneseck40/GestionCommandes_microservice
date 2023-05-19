@@ -1,0 +1,120 @@
+<div class="container m-3">
+  <div class="card ">
+    <li class="list-inline-item btn-link m-2 ">
+      <a routerLink="/service-detailcommande" >Service-DetailCommande</a>
+    </li>
+    <h3 class="card-title" id="details">Liste des Details Commande</h3>
+    <button class="btn btn-outline-primary card-link" (click)="open(content)" style="width: 160px;"> Ajouter Details commande</button>
+    <div class="card-body">
+      <table class="table table-striped">
+
+        <thead>
+        <tr>
+          
+          <th scope="col">Libelle</th>
+          <th scope="col">Prix</th>
+          <th scope="col">Quantite</th>
+          <th scope="col">Montant</th>
+          <th scope="col">Numero commande</th>
+          <th scope="col">Action</th>
+
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let detailcommande of detailcommandes; index as i">
+         
+          <td>{{detailcommande.libelle}}</td>
+          <td>{{detailcommande.prix }}</td>
+          <td>{{detailcommande.quantite }}</td>
+          <td>{{detailcommande.montant }}</td>
+          <th scope="row">{{detailcommande.numCommande}}</th>
+          <td>
+            <button class="btn btn-danger m-2" (click)="supprimerDetailCommande(detailcommande.idDetail)"> Supprimer</button>
+            <button class="btn btn-info m-2" (click)="open(modifyEtu, i)"> Modifier</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Enregistrement details commande</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')" id="close-btn">X</button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <label for="numeroProduit" class="form-label">Numéro Commande</label>
+        <input type="number" class="form-control" id="numeroProduit" aria-describedby="IdEtudiant" name="numCommande" [(ngModel)]="newDetailCommande.numCommande">
+      </div>
+
+      <!--<div class="mb-3">
+        <label for="libelle" class="form-label">Libelle</label>
+        <input type="text" class="form-control" id="libelle" [(ngModel)]="newDetailCommande.libelle" name="libelle">
+      </div>-->
+
+      <div class="form-group">
+        <label for="category">Produit</label>
+        <select *ngIf="produits"  class="form-control" [(ngModel)]="newDetailCommande.libelle"  name="libelle" id="category">
+          <option value="">----------</option>
+          <option *ngFor="let produit of produits; index as i" value="{{produit.libelle}}">{{produit.libelle}}</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="prix" class="form-label">prix</label>
+        <input type="number" class="form-control" id="prix" [(ngModel)]="newDetailCommande.prix" name="prix">
+      </div>
+
+      <div class="mb-3">
+        <label for="qte" class="form-label">Quantite</label>
+        <input type="number" class="form-control" id="qte" [(ngModel)]="newDetailCommande.quantite" name="quantite">
+      </div>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary" (click)="enregistrerDetailCommande()">Enregistrer</button>
+  </div>
+</ng-template>
+
+
+
+<ng-template #modifyEtu let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modifyModal-title">Modification Details commande</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')" id="close-btn-modify">X</button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <label for="numeroProduit" class="form-label">Numéro commande</label>
+        <input type="text" class="form-control" id="numeroProduitModify" aria-describedby="IdEtudiant" name="numCommande" [(ngModel)]=" detailcommandeToModify.numCommande" readonly>
+      </div>
+
+      <div class="mb-3">
+        <label for="libelle" class="form-label">Libelle</label>
+        <input type="text" class="form-control" id="libelleModify" [(ngModel)]=" detailcommandeToModify.libelle" name="libelle">
+      </div>
+
+      <div class="mb-3">
+        <label for="prix" class="form-label">prix</label>
+        <input type="number" class="form-control" id="prixModify" [(ngModel)]="detailcommandeToModify.prix" name="prix">
+      </div>
+
+      <div class="mb-3">
+        <label for="qte" class="form-label">Quantite</label>
+        <input type="number" class="form-control" id="qteModify" [(ngModel)]="detailcommandeToModify.quantite" name="quantite">
+      </div>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary" (click)="modifierDetailCommande()">Modifier</button>
+  </div>
+</ng-template>
+

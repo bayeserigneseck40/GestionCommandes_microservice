@@ -1,0 +1,135 @@
+<div class="container m-3">
+  <div class="col-4">
+    <form #f="ngForm">
+       <div class="form-group">
+         <label for="keyword">Recherche</label>
+         <input (keyup)="RechercherCommande(f.value)" ngModel placeholder="Tapez votre mot de clet de recherche ici!!" type="text" name="keyword" id="keyword" class="form-control">
+       </div>
+    </form>
+  </div>
+  <div class="card ">
+    <h3 class="card-title"  id="commande">Liste des commande des commandes</h3>
+    <button class="btn btn-outline-primary card-link" (click)="open(content)" style="width: 200px;"> Ajouter une commande pour un client</button>
+    <div class="card-body">
+      <table class="table table-striped">
+
+        <thead>
+        <tr>
+          <th scope="col">Numero Commande</th>
+          <th scope="col">Numero Client</th>
+          <th scope="col">Nom Client</th>
+          <th scope="col">Prenom Client</th>
+          <th scope="col">Date Commande</th>
+          <th scope="col">Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let commande of commandes; index as i">
+          <th scope="row">{{commande.numCommande}}</th>
+          <td>
+            {{commande.numClient}}
+          </td>
+          <td>{{ commande.nom }}</td>
+          <td>{{ commande.prenom }}</td>
+          <td>{{ commande.dateCommande }}</td>
+          <td>
+            <button class="btn btn-danger m-2" (click)="supprimerCommande(commande.numCommande)">Supprimer</button>
+            <button class="btn btn-info m-2" (click)="open(modifyEtu, i)">Modifier</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Enregistrement Commande</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')" id="close-btn">X</button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <label for="numeroCommande" class="form-label">Numéro Commande</label>
+        <input type="text" class="form-control" id="numeroCommande" aria-describedby="IdEtudiant"  name="numeroCarte" [(ngModel)]="newCommande.numCommande">
+      </div>
+
+
+     <div class="mb-3">
+        <label for="commande" class="form-label">Numéro Client</label>
+        <input type="text" class="form-control" id="commande" [(ngModel)]="newCommande.numClient"  name="numClient">
+      </div>
+
+      <div class="mb-3">
+        <label for="commande" class="form-label">Date Commande</label>
+        <input type="date" class="form-control" id="commande" [(ngModel)]="newCommande.dateCommande"  name="dateCommande">
+      </div>
+
+      <!--<div class="mb-3">
+        <label for="commande" class="form-label">Nom Client</label>
+        <input type="text" class="form-control" id="commande" [(ngModel)]="newCommande.nom" name="nom">
+      </div>
+
+      <div class="mb-3">
+        <label for="commande" class="form-label">Prenom Client</label>
+        <input type="text" class="form-control" id="commande" [(ngModel)]="newCommande.prenom" name="prenom">
+      </div>
+
+      <div class="mb-3">
+        <label for="commande" class="form-label">Numero Client</label>
+        <input type="text" class="form-control" id="commande" [(ngModel)]="newCommande.numero" name="numero">
+      </div>--->
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary" (click)="enregistrerCommande()">Enregistrer</button>
+  </div>
+</ng-template>
+
+
+
+<ng-template #modifyEtu let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modifyModal-title">Modification Commande</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')" id="close-btn-modify">X</button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <label for="numeroCommande" class="form-label">Numéro Commande</label>
+        <input type="text" class="form-control" id="numeroCommandeModify" aria-describedby="IdEtudiant" name="numCommande" readonly [(ngModel)]="commandeToModify.numCommande">
+      </div>
+
+      <div class="mb-3">
+        <label for="commande" class="form-label">Numéro Client</label>
+        <input type="text" class="form-control" id="moyenneModify" [(ngModel)]="commandeToModify.numClient" readonly name="numClient">
+      </div>
+
+      <div class="mb-3">
+        <label for="nom" class="form-label">Nom Client</label>
+        <input type="text" class="form-control" id="commandeModify" [(ngModel)]="commandeToModify.nom" name="nom">
+      </div>
+
+      <div class="mb-3">
+        <label for="prenom" class="form-label">Prenom Client</label>
+        <input type="text" class="form-control" id="prenomModify" [(ngModel)]="commandeToModify.prenom" name="prenom">
+      </div>
+
+      <div class="mb-3">
+        <label for="numero" class="form-label">Numero</label>
+        <input type="text" class="form-control" id="numeroModify" [(ngModel)]="commandeToModify.numero" name="numero">
+      </div>
+
+
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary" (click)="modifierCommande()">Modifier</button>
+  </div>
+</ng-template>
+
+

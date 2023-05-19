@@ -1,0 +1,106 @@
+<div class="container m-3">
+  <div class="card ">
+    <h3 class="card-title" id="client">Liste des clients</h3>
+    <button class="btn btn-outline-primary card-link" (click)="open(content)" style="width: 120px;"> Ajouter Client</button>
+    <div class="card-body">
+      <table class="table table-striped">
+
+        <thead>
+        <tr>
+          <th scope="col">Numero Client</th>
+          <th scope="col">Prénom</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Numero</th>
+          <th scope="col">Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let client of clients; index as i">
+          <th scope="row">{{client.id}}</th>
+          <td>
+            {{client.prenom}}
+          </td>
+          <td>{{client.nom }}</td>
+          <td>{{client.numero }}</td>
+          <td>
+            <button class="btn btn-danger m-2" (click)="supprimerClient(client.id)"> Supprimer</button>
+            <button class="btn btn-info m-2" (click)="open(modifyEtu, i)"> Modifier</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Enregistrement clients</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')" id="close-btn">X</button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <label for="numeroClient" class="form-label">Numéro Client</label>
+        <input type="text" class="form-control" id="numeroClient" aria-describedby="IdEtudiant" name="id" [(ngModel)]="newClient.id">
+      </div>
+
+      <div class="mb-3">
+        <label for="prenom" class="form-label">Prénom</label>
+        <input type="text" class="form-control" id="prenom" [(ngModel)]="newClient.prenom" name="prenom">
+      </div>
+
+      <div class="mb-3">
+        <label for="nom" class="form-label">Nom</label>
+        <input type="text" class="form-control" id="nom" [(ngModel)]="newClient.nom" name="nom">
+      </div>
+
+      <div class="mb-3">
+        <label for="classe" class="form-label">numero</label>
+        <input type="text" class="form-control" id="classe" [(ngModel)]="newClient.numero" name="numero">
+      </div>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary" (click)="enregistrerClient()">Enregistrer</button>
+  </div>
+</ng-template>
+
+
+
+<ng-template #modifyEtu let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modifyModal-title">Modification Client</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')" id="close-btn-modify">X</button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <label for="numeroClient" class="form-label">Numéro Client</label>
+        <input type="text" class="form-control" id="numeroClientModify" aria-describedby="IdEtudiant" name="numeroCarte" [(ngModel)]="clientToModify.id">
+      </div>
+
+      <div class="mb-3">
+        <label for="prenom" class="form-label">Prénom</label>
+        <input type="text" class="form-control" id="prenomModify" [(ngModel)]="clientToModify.prenom" name="prenom">
+      </div>
+
+      <div class="mb-3">
+        <label for="nom" class="form-label">Nom</label>
+        <input type="text" class="form-control" id="nomModify" [(ngModel)]="clientToModify.nom" name="nom">
+      </div>
+
+      <div class="mb-3">
+        <label for="classe" class="form-label">numero</label>
+        <input type="text" class="form-control" id="classeModify" [(ngModel)]="clientToModify.numero" name="classe">
+      </div>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary" (click)="modifierClient()">Modifier</button>
+  </div>
+</ng-template>
+
